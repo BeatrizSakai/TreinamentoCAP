@@ -1,0 +1,51 @@
+<mvc:View xmlns:form="sap.ui.layout.form" controllerName="firstapp.project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>eu fiz o primeiro projeto}">
+        <content>
+            <VBox id="VboxInicial"  class="sapUiSmallMargin">
+                <form:SimpleForm id="simpleform">
+                    <form:content>
+                        <Label id="lblcpf" text="CPF" />
+                        <Input id="iptcpf" type="Number" value="{formModel>/cpf}" />
+
+                        <Label id="lblnome" text="Nome" />
+                        <Input id="iptnome" value="{formModel>/nome}" />
+
+                        <Label id="lblidade" text="Idade" />
+                        <Input id="iptidade" value="{formModel>/idade}" type="Number" />
+
+                        <Button id="btnDatos" text="cadastrar" press="onSalvarPessoa" />
+                                    
+                    </form:content>
+                </form:SimpleForm>
+
+                <Table id="pessoasTable" items="{/pessoa}">
+                    <columns>
+                        <Column id="columCPF">
+                            <Text id="txtCPF" text="CPF" />
+                        </Column>
+
+                        <Column id="columNome">
+                            <Text id="txtNome" text="Nome" />
+                        </Column>
+                        <Column id="columIdade">
+                            <Text id="txtIdade" text="Idade" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem id="clmnListItem">
+                        <cells>
+                            <Text id="cellcpf" text="{cpf}" />
+                            <Text id="cellNome"  text="{nome}" />
+                            <Text id="cellIdade"  text="{idade}" />
+                        </cells>
+                        </ColumnListItem>
+                    </items>
+                    </Table>
+            </VBox>
+        
+        </content>
+    
+    </Page>
+</mvc:View>

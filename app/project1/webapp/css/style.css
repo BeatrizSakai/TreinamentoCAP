@@ -1,0 +1,33 @@
+.customHeaderBar {
+    height: 60px !important;
+    line-height: 80px; 
+    padding-top: 20px;
+}
+.formulario{
+    margin-top: 30px !important;
+    justify-content: center;
+    display: flex;
+    width: 600px;       
+    margin: 0 auto;    
+}
+.bigBoldText {
+    font-weight: bold;
+    font-size: 20px;
+}
+.painel{
+    margin-top: 100px !important;
+    justify-self: center;
+    justify-content: center;
+    border-radius: 15px !important;
+}
+.texto{
+    width: 800px;
+    align-self: center;
+}
+.headerForm{
+    height: 60px !important; 
+    align-items: center; 
+}
+.botao{
+    margin-bottom: 3%;
+}

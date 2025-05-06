@@ -1,0 +1,99 @@
+<mvc:View controllerName="firstapp.project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout.form">
+    <Page id="page">
+         <customHeader>
+            <Bar class="customHeaderBar">
+                <contentMiddle>
+                    <HBox alignItems="Center" justifyContent="Start">
+                        <Image src="img/sap-logo.svg" height="80px"/>
+                        <Text text="{i18n>Formulário}" class="bigBoldText" />
+                    </HBox>
+                </contentMiddle>
+            </Bar>
+        </customHeader>
+        <Panel width="900px" class="sapUiResponsiveMargin painel" accessibleRole="Region">
+            <headerToolbar >
+                <OverflowToolbar class="headerForm">
+                    <Title text="Formulário de Contato"/>
+                </OverflowToolbar>
+            </headerToolbar>
+            <content>
+                <VBox id="mainVBox"  class="formulario">
+                    <Text class="texto" text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. " />
+                    <layout:SimpleForm
+                        
+                        id="mySimpleForm"
+                        editable="true"
+                        layout="ResponsiveGridLayout"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        emptySpanL="4"
+                        emptySpanM="4"
+                        columnsL="1"
+                        columnsM="1"
+                        class="sapUiSmallMarginTop">
+
+                        <!-- Nome -->
+                        <Label text="Nome"/>
+                        <Input id="nameInput" type="Text" value="{formModel>/nome}" placeholder="Digite seu nome" />
+
+                        <!-- CPF -->
+                        <Label text="CPF"/>
+                        <Input id="cpfInput" type="Number" value="{formModel>/cpf}" placeholder="Digite seu CPF" />
+
+                        <!-- Idade -->
+                        <Label text="Idade"/>
+                        <Input id="idadeInput" type="Number" value="{formModel>/idade}" placeholder="Digite sua idade" />
+
+                    </layout:SimpleForm>
+
+                    <HBox justifyContent="Center" width="100%" class="botao">
+                            <Button text="Enviar" width="300px" press="onSalvarPessoa" type="Emphasized"/>
+                    </HBox>
+
+                </VBox>
+            </content>
+        </Panel>
+        <Panel width="900px" class="sapUiResponsiveMargin painel" accessibleRole="Region">
+            <Table id="pessoasTable" items="{/pessoa}">
+                <columns>
+                    <Column id="columCPF">
+                        <Text id="txtCPF" text="CPF" />
+                    </Column>
+
+                    <Column id="columNome">
+                        <Text id="txtNome" text="Nome" />
+                    </Column>
+
+                    <Column id="columIdade">
+                        <Text id="txtIdade" text="Idade" />
+                    </Column>
+
+                    <Column id="columAcao">
+                        <Text id="txtAcao" text="Ação" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem id="clmnListItem">
+                        <cells>
+                            <Text id="cellcpf" text="{cpf}" />
+                            <Text id="cellNome"  text="{nome}" />
+                            <Text id="cellIdade"  text="{idade}" />
+                            <Button icon="sap-icon://delete" type="Transparent" press=".delete" tooltip="Excluir" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </Panel>
+        <footer>
+            <Bar>
+                <contentMiddle>
+                    <Text text="© 2025 - Meu Projeto SAPUI5" />
+                </contentMiddle>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>
