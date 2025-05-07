@@ -4,26 +4,51 @@ module.exports = (srv) => {
   srv.before('CREATE', 'pessoa', (req) => {
     const { cpf, nome, idade } = req.data;
 
-    const messages = [];
-
     if (!/^\d{11}$/.test(cpf)) {
-      messages.push('CPF inválido. Deve conter 11 dígitos numéricos.');
+      return req.reject(400, 'CPF inválido. Deve conter 11 dígitos numéricos.');
     }
 
     if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(nome) || nome.length < 3) {
-      messages.push('Nome inválido. Use pelo menos 3 letras, sem números.');
+      return req.reject(400, 'Nome inválido. Use pelo menos 3 letras, sem números.');
     }
 
     if (!idade || idade < 1) {
-      messages.push('Idade deve ser maior que zero.');
+      return req.reject(400, 'Idade deve ser maior que zero.');
+    }
+  },
+  srv.before('UPDATE', 'pessoa', async (req) => {
+    const { cpf } = req.data;
+
+    // Lê o registro atual do banco
+    const pessoaAtual = await SELECT.from('pessoa').where({ cpf }).limit(1);
+    const pessoa = pessoaAtual[0];
+
+    // Aplica os dados modificados por cima do original
+    const dadosFinais = { ...pessoa, ...req.data };
+
+    const { nome, idade } = dadosFinais;
+
+    if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(nome) || nome.length < 3) {
+      req.error({
+        code: 'INVALID_NAME',
+        message: 'Nome inválido. Use pelo menos 3 letras, sem números.',
+        target: 'nome',
+        status: 400
+      });
     }
 
-    if (messages.length > 0) {
-      // Adiciona múltiplas mensagens sem lançar exceção
-      req.errors = messages.map(msg => ({ message: msg }));
-
-      // Interrompe a criação de fato, sem lançar erro abruptamente
-      return req.reject({ code: 400, message: 'Falha na validação', details: req.errors });
+    if (!idade || idade < 1) {
+      req.error({
+        code: 'INVALID_AGE',
+        message: 'Idade deve ser maior que zero.',
+        target: 'idade',
+        status: 400
+      });
     }
-  });
+
+    if (req.errors?.length > 0) {
+      return req.reject(400, 'Erros de validação encontrados.');
+    }
+  })
+);
 };

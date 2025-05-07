@@ -10,6 +10,7 @@
                         <Image src="img/sap-logo.svg" height="80px"/>
                         <Text text="{i18n>Formulário}" class="bigBoldText" />
                     </HBox>
+                    <Button id="botaoNav" press="navButton" text="teste"></Button>
                 </contentMiddle>
             </Bar>
         </customHeader>
@@ -37,15 +38,15 @@
 
                         <!-- Nome -->
                         <Label text="Nome"/>
-                        <Input id="nameInput" type="Text" value="{formModel>/nome}" placeholder="Digite seu nome" />
+                        <Input id="nameInput" type="Text" maxLength="55" value="{formModel>/nome}"  valueState="{formModel>/nomeState}" valueStateText="{formModel>/nomeText}" placeholder="Digite seu nome" />
 
                         <!-- CPF -->
                         <Label text="CPF"/>
-                        <Input id="cpfInput" type="Number" value="{formModel>/cpf}" placeholder="Digite seu CPF" />
+                        <Input id="cpfInput" type="Number" maxLength="5" value="{formModel>/cpf}" valueState="{formModel>/cpfState}" valueStateText="{formModel>/cpfText}" placeholder="Digite seu CPF" />
 
                         <!-- Idade -->
                         <Label text="Idade"/>
-                        <Input id="idadeInput" type="Number" value="{formModel>/idade}" placeholder="Digite sua idade" />
+                        <Input id="idadeInput" type="Number" value="{formModel>/idade}" valueState="{formModel>/idadeState}" valueStateText="{formModel>/idadeText}" placeholder="Digite sua idade" />
 
                     </layout:SimpleForm>
 
@@ -74,6 +75,11 @@
                     <Column id="columAcao">
                         <Text id="txtAcao" text="Ação" />
                     </Column>
+                    <Column id="columDetalhe">
+                        <Text id="txtDetalhe" text="Detalhe" />
+                    </Column>
+                    
+                    
                 </columns>
 
                 <items>
@@ -83,6 +89,7 @@
                             <Text id="cellNome"  text="{nome}" />
                             <Text id="cellIdade"  text="{idade}" />
                             <Button icon="sap-icon://delete" type="Transparent" press=".delete" tooltip="Excluir" />
+                            <Button type="Transparent" press="onPessoaPress" tooltip="Detalhe" text="Detalhe"/>
                         </cells>
                     </ColumnListItem>
                 </items>

@@ -1,0 +1,30 @@
+<mvc:View controllerName="firstapp.project1.controller.View2"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page title="Dados da Pessoa">
+        <Panel width="900px" class="sapUiResponsiveMargin painel" accessibleRole="Region">
+        <headerToolbar >
+                <OverflowToolbar class="headerForm">
+                    <Title text="Detalhes"/>
+                </OverflowToolbar>
+        </headerToolbar>
+        <content>
+        <VBox class="sapUiSmallMargin">
+            <Button text="Voltar"  press="onVoltar"/>
+            <Label text="CPF"/>
+            <Input value="{cpf}" editable="false" />
+
+            <Label text="Nome" />
+            <Input id="inputNome" value="{nome}" />
+
+            <Label text="Idade" />
+            <Input id="inputIdade" value="{idade}" type="Number" />
+        </VBox>
+
+        <Button text="Salvar" type="Emphasized" press="onSalvarAlteracoes"/>
+
+        </content>
+        </Panel>
+    </Page>
+</mvc:View>
+
