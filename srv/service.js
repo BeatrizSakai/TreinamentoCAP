@@ -18,39 +18,25 @@ module.exports = cds.service.impl(async function () {
     }
   });
   this.before('UPDATE', 'pessoa', async (req) => {
-    const { cpf } = req.data;
-
-    // Lê o registro atual do banco
-    const pessoaAtual = await SELECT.from('pessoa').where({ cpf }).limit(1);
-    const pessoa = pessoaAtual[0];
-
-    // Aplica os dados modificados por cima do original
-    const dadosFinais = { ...pessoa, ...req.data };
-
-    const { nome, idade } = dadosFinais;
-
-    if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(nome) || nome.length < 3) {
-      req.error({
-        code: 'INVALID_NAME',
-        message: 'Nome inválido. Use pelo menos 3 letras, sem números.',
-        target: 'nome',
-        status: 400
-      });
+    const { nome, idade } = req.data;
+  
+    if (nome === null) {
+      return req.error(400, 'Nome não pode ser nulo.');
     }
-
-    if (!idade || idade < 1) {
-      req.error({
-        code: 'INVALID_AGE',
-        message: 'Idade deve ser maior que zero.',
-        target: 'idade',
-        status: 400
-      });
+  
+    if (nome != null && nome.trim().length < 3) {
+      return req.error(400, 'Nome muito curto. Mínimo 3 caracteres.');
     }
-
-    if (req.errors?.length > 0) {
-      return req.reject(400, 'Erros de validação encontrados.');
+  
+    if (idade === null) {
+      return req.error(400, 'Idade não pode ser nula.');
+    }
+  
+    if (idade != null && (idade < 0 || idade > 120)) {
+      return req.error(400, 'Idade inválida. Deve estar entre 0 e 120.');
     }
   });
+  
 
   this.on('READ', 'pessoa', async (req) => {
       const db = await cds.connect.to('db');

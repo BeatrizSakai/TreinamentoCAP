@@ -102,6 +102,8 @@
           "options": {
             "settings": {
               "contextPath": "/pessoa",
+              "creationMode": "NewPage",
+              "useNewActionForCreate": true,
               "variantManagement": "Page",
               "navigation": {
                 "pessoa": {
@@ -113,10 +115,23 @@
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "ResponsiveTable"
+                    "type": "ResponsiveTable",
+                    "creationMode": "NewPage"
+                  },
+                  "columns": {
+                    "DataField::nome": {
+                      "width": "40%"
+                    },
+                    "DataField::cpf": {
+                      "width": "40%"
+                    },
+                    "DataField::idade": {
+                      "width": "20%"
+                    }
                   }
                 }
-              }
+              },
+              "initialLoad": "Enabled"
             }
           }
         },
