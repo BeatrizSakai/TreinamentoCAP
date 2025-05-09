@@ -1,7 +1,8 @@
 const cds = require('@sap/cds');
 
-module.exports = (srv) => {
-  srv.before('CREATE', 'pessoa', (req) => {
+module.exports = cds.service.impl(async function () {
+
+  this.before('CREATE', 'pessoa', async(req) => {
     const { cpf, nome, idade } = req.data;
 
     if (!/^\d{11}$/.test(cpf)) {
@@ -15,8 +16,8 @@ module.exports = (srv) => {
     if (!idade || idade < 1) {
       return req.reject(400, 'Idade deve ser maior que zero.');
     }
-  },
-  srv.before('UPDATE', 'pessoa', async (req) => {
+  });
+  this.before('UPDATE', 'pessoa', async (req) => {
     const { cpf } = req.data;
 
     // Lê o registro atual do banco
@@ -49,6 +50,10 @@ module.exports = (srv) => {
     if (req.errors?.length > 0) {
       return req.reject(400, 'Erros de validação encontrados.');
     }
-  })
-);
-};
+  });
+
+  this.on('READ', 'pessoa', async (req) => {
+      const db = await cds.connect.to('db');
+      return await db.run(req.query);
+  });
+});

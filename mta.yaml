@@ -63,9 +63,23 @@ modules:
       - firstappproject1.zip
       name: firstappproject1
       target-path: app/
+    - artifacts:
+      - projectfioriproject2.zip
+      name: projectfioriproject2
+      target-path: app/
 - name: firstappproject1
   type: html5
   path: app/project1
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: projectfioriproject2
+  type: html5
+  path: app/project2
   build-parameters:
     build-result: dist
     builder: custom

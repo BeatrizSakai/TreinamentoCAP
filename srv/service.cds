@@ -1,6 +1,6 @@
-using { FirstApp as this } from '../db/schema';
+using { FirstApp as this } from '../db/src/schema';
 
-@path: '/api/first'
+@path: '/odata/v4/api/first'
 
 service FirstAppSrv {
 
